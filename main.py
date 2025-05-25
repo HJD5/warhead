@@ -1,6 +1,7 @@
 import sys
 import sqlite3
 import requests
+
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QHBoxLayout, QLabel, QTableWidget,
     QTableWidgetItem, QHeaderView, QFileDialog, QComboBox
@@ -14,6 +15,37 @@ from dialogs.AddFlightDialog import AddFlightDialog
 from dialogs.login_dialog import LoginDialog
 from db import init_db
 from openpyxl import Workbook
+import sys
+import subprocess
+
+def install_requirements():
+    import os
+    req_file = "requirements.txt"
+    if os.path.exists(req_file):
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", req_file])
+        except Exception as e:
+            print("Ошибка при установке зависимостей:", e)
+            input("Нажмите Enter для выхода...")
+            sys.exit(1)
+    else:
+        print("Файл requirements.txt не найден!")
+        input("Нажмите Enter для выхода...")
+        sys.exit(1)
+
+try:
+    # Пробуем импортировать ваши основные модули (пример)
+    import PyQt5
+    import pandas
+    import numpy
+    # ...добавьте сюда любые другие важные импорты...
+except ImportError:
+    print("Обнаружены отсутствующие библиотеки. Сейчас они будут установлены.")
+    install_requirements()
+    print("Попробуйте перезапустить программу после установки.")
+    input("Нажмите Enter для выхода...")
+    sys.exit(0)
+
 
 # === ЛОКАЛИЗАЦИЯ ===
 LANG = "kk"  # kk = казахский, ru = русский, en = english
