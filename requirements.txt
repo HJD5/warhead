@@ -1,4 +1,6 @@
 PyQt5
+PyQtWebEngine
+openpyxl
 pandas
 numpy
 opencv-python
